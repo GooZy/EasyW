@@ -4,7 +4,10 @@
 # @Author  : GUO Ziyao
 import os
 
+from easyw.common.db import init_db
+
 from flask import Flask
+from flask import g
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -14,3 +17,17 @@ app.config.from_object('config.default')
 
 # If can't find the variable, don't throw exception
 app.config.from_envvar('APP_CONFIG_FILE', silent=True)
+
+
+@app.cli.command('initdb')
+def initdb_command():
+    """Initializes the database."""
+    init_db()
+    print('Initialized the database.')
+
+
+@app.teardown_appcontext
+def close_db(error):
+    """Closes the database again at the end of the request."""
+    if hasattr(g, 'sqlite_db'):
+        g.sqlite_db.close()

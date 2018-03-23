@@ -4,7 +4,7 @@
 # @Author  : GUO Ziyao
 import os
 
-from easyw import app
+from easyw.bootstrap import app
 
 
 port = int(os.environ.get('EASYW_PORT', 9715))
