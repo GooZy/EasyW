@@ -5,9 +5,17 @@
 """
 Homepage
 """
-from easyw import app
+from flask import Blueprint
+from flask import render_template
+
+bp = Blueprint(__name__, __name__)
 
 
-@app.route('/')
+@bp.route('/')
 def hello_world():
     return 'Hello, World!'
+
+
+@bp.app_errorhandler(404)
+def not_found(ex):
+    return render_template('404.html'), 404
