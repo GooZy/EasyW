@@ -8,12 +8,12 @@ Homepage
 from flask import Blueprint
 from flask import render_template
 
-bp = Blueprint(__name__, __name__)
+bp = Blueprint('index', __name__)
 
 
 @bp.route('/')
 def hello_world():
-    return 'Hello, World!'
+    return render_template('welcome.html')
 
 
 @bp.app_errorhandler(404)

@@ -3,6 +3,6 @@
 # @Time    : 2018/3/21 08:57
 # @Author  : GUO Ziyao
 
-SECRET_KEY = '632team forever'
+SECRET_KEY = 'team632 forever'
 USERNAME = 'admin'
 PASSWORD = 'default'
