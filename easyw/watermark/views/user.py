@@ -2,8 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/3/24 16:03
 # @Author  : GUO Ziyao
-from easyw.common.db import query_db
-from easyw.common.utils import hash_password
+from easyw.watermark.service.user import UserService
 
 from flask import flash
 from flask import Blueprint
@@ -26,13 +25,13 @@ def register():
         if not username or not password or not password2:
             error_message = "Please fill in all textbox!"
         else:
-            result = query_db('SELECT * FROM users WHERE username=?', [username])
+            result = UserService.get_user_by_name(username)
             if result:
                 error_message = "Username exist!"
             elif password != password2:
                 error_message = "Entered passwords differ!"
             else:
-                query_db("INSERT INTO users(username, password) VALUES (?, ?)", [username, hash_password(password)])
+                UserService.add_user(username, password)
                 flash('Register successfully!')
                 return render_template('login.html')
     return render_template('register.html', error=error_message)
@@ -43,8 +42,8 @@ def login():
     error_message = None
     if request.method == 'POST':
         username = request.form['username']
-        password = hash_password(request.form['password'])
-        result = query_db('SELECT * FROM users WHERE username=? AND password=?', [username, password])
+        password = request.form['password']
+        result = UserService.get_user_by_name_and_password(username, password)
         if not result:
             error_message = "Invalid username or password!"
         else:
