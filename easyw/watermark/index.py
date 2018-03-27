@@ -7,12 +7,15 @@ Homepage
 """
 from flask import Blueprint
 from flask import render_template
+from flask import session
 
 bp = Blueprint('index', __name__)
 
 
 @bp.route('/')
 def hello_world():
+    if session.get('logged_in'):
+        return render_template('main.html')
     return render_template('welcome.html')
 
 

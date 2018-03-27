@@ -1,6 +1,6 @@
 {% extends "layout.html" %}
 {% block body %}
 <p><b>Choose a method you want to use :)</b></p>
-<button class="button" onclick="location.href='/lsb.html'" style="margin-left: 35%;">LSB</button>
-<button class="button" onclick="location.href='/dwt.html'" style="margin-left: 2em;">DWT</button>
+<a href="{{ url_for('process.lsb_index') }}"><button class="button" style="margin-left: 35%;">LSB</button></a>
+<a href="{{ url_for('process.dwt_index') }}"><button class="button" style="margin-left: 2em;">DWT</button></a>
 {% endblock %}

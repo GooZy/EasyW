@@ -5,7 +5,9 @@
 from . import app
 from watermark.index import bp as index_bp
 from watermark.views.user import bp as user_bp
+from watermark.views.process import bp as process_bp
 
 
 app.register_blueprint(index_bp)
 app.register_blueprint(user_bp)
+app.register_blueprint(process_bp)
