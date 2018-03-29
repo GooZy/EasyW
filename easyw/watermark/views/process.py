@@ -17,6 +17,11 @@ def lsb_index():
     return render_template('lsb.html')
 
 
+@bp.route('/api/perform_lsb', methods=['GET', 'POST'])
+def perform_lsb():
+    return render_template('lsb.html')
+
+
 @bp.route('/dwt_index', methods=['GET', 'POST'])
 def dwt_index():
     return render_template('dwt.html')

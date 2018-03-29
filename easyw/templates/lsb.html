@@ -1,5 +1,9 @@
 {% extends "layout.html" %}
 {% block body %}
 <a href="{{ url_for('index.hello_world') }}"><--</a>
-
+<form enctype="multipart/form-data" action="api/perform_lsb" method="post">
+    <p>Cover Image: <input type="file" name="cover_image"></p>
+    <p>Watermark: <input type="file" name="watermark"></p>
+    <p><input type="submit" value="Upload"></p>
+</form>
 {% endblock %}
