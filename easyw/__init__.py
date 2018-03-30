@@ -24,12 +24,3 @@ def initdb_command():
     """Initializes the database."""
     init_db()
     print('Initialized the database.')
-
-
-@app.teardown_appcontext
-def close_db(error):
-    """Closes the database again at the end of the request."""
-    if error:
-        app.logger.error("Teardown error: %s" % error)
-    if hasattr(g, 'sqlite_db'):
-        g.sqlite_db.close()

@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 {% block body %}
-<a href="{{ url_for('index.hello_world') }}"><--</a>
+<a href="{{ url_for('index.hello_world') }}">
+    <img src="{{ url_for('static', filename='image/back_sign.ico') }}" width="20px" height="20px"/>
+</a>
 
 {% endblock %}

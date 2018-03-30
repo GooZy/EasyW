@@ -1,9 +1,22 @@
 {% extends "layout.html" %}
 {% block body %}
-<a href="{{ url_for('index.hello_world') }}"><--</a>
+<a href="{{ url_for('index.hello_world') }}">
+    <img src="{{ url_for('static', filename='image/back_sign.ico') }}" width="20px" height="20px"/>
+</a>
 <form enctype="multipart/form-data" action="api/perform_lsb" method="post">
-    <p>Cover Image: <input type="file" name="cover_image"></p>
-    <p>Watermark: <input type="file" name="watermark"></p>
-    <p><input type="submit" value="Upload"></p>
+    <p>Cover Image:
+        <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 120, 120)">
+    </p>
+    <img id="previewCover" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+    <p>Watermark:
+        <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 120, 120)">
+    </p>
+    <img id="previewWater" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+    <p>
+        <input type="submit" value="Perform">
+    </p>
 </form>
+<div id="bigPic" style="position:absolute;display:none;">
+    <img src="" id="pre_view"/>
+</div>
 {% endblock %}

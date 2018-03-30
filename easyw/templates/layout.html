@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
 <link rel="shortcut icon" href="{{ url_for('static', filename='image/favicon.jpg') }}">
+<script type="text/javascript" src="{{ url_for('static', filename='util.js') }}"></script>
 <title>Easy Watermark</title>
 <div class=page>
   <h1>Easy Watermark</h1>
@@ -15,5 +16,6 @@
   {% for message in get_flashed_messages() %}
     <div class=flash>{{ message }}</div>
   {% endfor %}
-  {% block body %}{% endblock %}
+  {% block body %}
+  {% endblock %}
 </div>
