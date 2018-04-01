@@ -28,8 +28,10 @@ def perform_lsb():
     # save files to local path
     cover_image_path = ImageBiz.save_image(cover_image)
     watermark_path = ImageBiz.save_image(watermark)
-    ImageBiz.lsb(cover_image_path, watermark_path)
-    return render_template('lsb.html')
+
+    result_files = ImageBiz.lets_lsb(cover_image_path, watermark_path)
+
+    return render_template('lsb_result.html', result_files=result_files)
 
 
 @bp.route('/dwt_index', methods=['GET', 'POST'])

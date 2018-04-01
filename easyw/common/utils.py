@@ -16,3 +16,7 @@ def hash_password(password):
 def show_img(img, title='TEST'):
     cv2.imshow(title, img)
     cv2.waitKey(0)
+
+
+def get_web_path(path):
+    return path.replace(path.rsplit('/', 3)[0], '')

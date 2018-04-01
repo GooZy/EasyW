@@ -66,9 +66,9 @@ function showBigPic(filepath) {
     var intX = window.event.clientX;
     var intY = window.event.clientY;
     console.log('x:', intX, 'y', intY);
-    console.log(window.screen.availHeight);
-    if (intY + img.height >= window.screen.availHeight) {
-        //设置大图左下角起点位置
+    console.log(window.screen.height);
+    if (intY * 2 >= window.screen.height) {
+        //设置大图左上角起点位置
         div.style.left = intX + 5 + "px";
         div.style.top = intY - img.height + "px";
     }

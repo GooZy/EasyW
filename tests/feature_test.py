@@ -7,7 +7,7 @@ import cv2
 from easyw.common.utils import show_img
 
 
-cover_image = cv2.imread('/Users/guoziyao/Desktop/5917EDC099C584EF6610A252448B940D.jpg')
+cover_image = cv2.imread('/Users/guoziyao/Desktop/cqu.jpg')
 watermark = cv2.imread('/Users/guoziyao/Desktop/cqu.png')
 
 # graying & binaryzation
@@ -24,7 +24,8 @@ for i in range(h):
         if watermark[i, j] == 255:
             b_cover_image[i, j] = b_cover_image[i, j] | 1
 cover_image[:, :, 0] = b_cover_image
-
+cv2.imwrite('x.bmp', cover_image)
+cover_image = cv2.imread('x.bmp')
 # decode
 h, w = cover_image.shape[: 2]
 b_cover_image = cover_image[:, :, 0]
