@@ -4,7 +4,7 @@
 <script type="text/javascript" src="{{ url_for('static', filename='util.js') }}"></script>
 <title>Easy Watermark</title>
 <div class=page>
-  <h1>Easy Watermark</h1>
+  <a href="{{ url_for('index.hello_world') }}" style="text-decoration: none"><h1>Easy Watermark</h1></a>
   <div class=metanav>
   {% if not session.logged_in %}
     <a href="{{ url_for('user.login') }}">log in</a>

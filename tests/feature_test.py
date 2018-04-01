@@ -4,13 +4,34 @@
 # @Author  : GUO Ziyao
 import cv2
 
-img = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/data/cqu.png')
-
-gray_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
-cv2.imshow('a', gray_img)
+from easyw.common.utils import show_img
 
 
-ret, binary_img = cv2.threshold(gray_img, 0, 255, cv2.THRESH_OTSU | cv2.THRESH_BINARY_INV)
+cover_image = cv2.imread('/Users/guoziyao/Desktop/5917EDC099C584EF6610A252448B940D.jpg')
+watermark = cv2.imread('/Users/guoziyao/Desktop/cqu.png')
 
-cv2.imshow('b', binary_img)
-cv2.waitKey(0)
+# graying & binaryzation
+watermark = cv2.cvtColor(watermark, cv2.COLOR_BGR2GRAY)
+ret, watermark = cv2.threshold(watermark, 0, 255, cv2.THRESH_OTSU)
+
+b_cover_image = cover_image[:, :, 0]
+
+h, w = watermark.shape[: 2]
+# init lsb to 0
+b_cover_image = b_cover_image & 254
+for i in range(h):
+    for j in range(w):
+        if watermark[i, j] == 255:
+            b_cover_image[i, j] = b_cover_image[i, j] | 1
+cover_image[:, :, 0] = b_cover_image
+
+# decode
+h, w = cover_image.shape[: 2]
+b_cover_image = cover_image[:, :, 0]
+for i in range(h):
+    for j in range(w):
+        if b_cover_image[i, j] & 1:
+            b_cover_image[i, j] = 255
+        else:
+            b_cover_image[i, j] = 0
+show_img(b_cover_image, 'DECODE')

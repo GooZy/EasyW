@@ -3,7 +3,8 @@
 <a href="{{ url_for('index.hello_world') }}">
     <img src="{{ url_for('static', filename='image/back_sign.ico') }}" width="20px" height="20px"/>
 </a>
-<form enctype="multipart/form-data" action="api/perform_lsb" method="post">
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
+<form enctype="multipart/form-data" action="{{ url_for('process.perform_lsb') }}" method="post">
     <p>Cover Image:
         <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 120, 120)">
     </p>

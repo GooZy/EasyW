@@ -4,6 +4,7 @@
 // 上传图片前预览
 function previewImage(file, id, MAXWIDTH, MAXHEIGHT) {
     var img = document.getElementById(id);
+    img.title = id;
     if (file.files && file.files[0]) {
         img.onload = function () {
             var rect = getZoomParam(MAXWIDTH, MAXHEIGHT, img.offsetWidth, img.offsetHeight);

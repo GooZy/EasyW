@@ -2,6 +2,10 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/3/23 13:22
 # @Author  : GUO Ziyao
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
+
 from blueprint import app
 
 from flask import g

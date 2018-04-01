@@ -7,7 +7,7 @@ import os
 from easyw.common.db import init_db
 
 from flask import Flask
-from flask import g
+
 
 app = Flask(__name__, instance_relative_config=True)
 

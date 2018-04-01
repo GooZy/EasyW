@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 # @Time    : 2018/3/24 16:03
 # @Author  : GUO Ziyao
+from easyw.watermark.biz.user import UserBiz
 from easyw.watermark.service.user import UserService
 
 from flask import flash
@@ -22,18 +23,11 @@ def register():
         username = request.form['username']
         password = request.form['password']
         password2 = request.form['password2']
-        if not username or not password or not password2:
-            error_message = "Please fill in all textbox!"
-        else:
-            result = UserService.get_user_by_name(username)
-            if result:
-                error_message = "Username exist!"
-            elif password != password2:
-                error_message = "Entered passwords differ!"
-            else:
-                UserService.add_user(username, password)
-                flash('Register successfully!')
-                return render_template('login.html')
+        error_message = UserBiz.register_user(username, password, password2)
+        if not error_message:
+            UserService.add_user(username, password)
+            flash('Register successfully!')
+            return render_template('login.html')
     return render_template('register.html', error=error_message)
 
 
