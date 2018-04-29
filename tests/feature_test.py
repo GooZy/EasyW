@@ -7,6 +7,9 @@ import pywt
 import numpy as np
 
 from easyw.common.utils import show_img
+from easyw.common.utils import arnold
+from easyw.common.utils import iarnold
+from config.default import SCRAMBLING_KEY
 
 
 def test_lsb():
@@ -47,6 +50,7 @@ def test_dwt():
     image = cv2.resize(image, (400, 400))
     cv2.imshow('Cover Image', image)
     watermark = cv2.resize(watermark, (100, 100))
+    watermark = arnold(watermark, SCRAMBLING_KEY)
     cv2.imshow('Watermark Image', watermark)
     org_img = image
 
@@ -86,6 +90,7 @@ def test_dwt():
     extracted = pywt.idwt2((cA, (cH, cV, cD)), 'haar')
     extracted *= 255
     extracted = np.uint8(extracted)
+    extracted = iarnold(extracted, SCRAMBLING_KEY)
     show_img(extracted, 'Extracted')
 
 
