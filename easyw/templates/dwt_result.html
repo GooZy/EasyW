@@ -1,0 +1,15 @@
+{% extends "layout.html" %}
+{% block body %}
+<a href="{{ url_for('process.dwt_index') }}">
+    <img src="{{ url_for('static', filename='image/back_sign.ico') }}" width="20px" height="20px"/>
+</a>
+<h2>DWT Result</h2>
+{% for result in result_files %}
+    <h3>{{ result.title }}</h3>
+    <img src="{{ result.file }}" width="20%" height="20%" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+    <img src="{{ result.decode_file }}" width="20%" height="20%" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+{% endfor %}
+<div id="bigPic" style="position:fixed;display:none;">
+    <img src="" id="pre_view"/>
+</div>
+{% endblock %}

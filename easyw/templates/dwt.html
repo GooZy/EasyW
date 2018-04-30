@@ -3,5 +3,22 @@
 <a href="{{ url_for('index.hello_world') }}">
     <img src="{{ url_for('static', filename='image/back_sign.ico') }}" width="20px" height="20px"/>
 </a>
-
+{% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
+<h2>DWT</h2>
+<form enctype="multipart/form-data" action="{{ url_for('process.perform_dwt') }}" method="post">
+    <p>Cover Image:
+        <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 120, 120)">
+    </p>
+    <img id="previewCover" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+    <p>Watermark:
+        <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 120, 120)">
+    </p>
+    <img id="previewWater" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+    <p>
+        <input type="submit" value="Perform">
+    </p>
+</form>
+<div id="bigPic" style="position:absolute;display:none;">
+    <img src="" id="pre_view"/>
+</div>
 {% endblock %}

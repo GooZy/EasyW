@@ -37,3 +37,18 @@ def perform_lsb():
 @bp.route('/dwt_index', methods=['GET', 'POST'])
 def dwt_index():
     return render_template('dwt.html')
+
+
+@bp.route('/api/perform_dwt', methods=['GET', 'POST'])
+def perform_dwt():
+    cover_image = request.files.get('cover_image')
+    watermark = request.files.get('watermark')
+    if not cover_image or not watermark:
+        return render_template('dwt.html', error='Upload files error!')
+    # save files to local path
+    cover_image_path = ImageBiz.save_image(cover_image)
+    watermark_path = ImageBiz.save_image(watermark)
+
+    result_files = ImageBiz.lets_dwt(cover_image_path, watermark_path)
+
+    return render_template('dwt_result.html', result_files=result_files)
