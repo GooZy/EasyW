@@ -5,6 +5,7 @@
 import cv2
 import pywt
 import numpy as np
+import matplotlib.pyplot as plt
 
 from easyw.common.utils import show_img
 from easyw.common.utils import arnold
@@ -14,7 +15,9 @@ from config.default import SCRAMBLING_KEY
 
 def test_lsb():
     cover_image = cv2.imread('/Users/guoziyao/Desktop/lena.jpg')
-    watermark = cv2.imread('/Users/guoziyao/Desktop/cqu.png')
+    org_image = cover_image
+    watermark = cv2.imread('/Users/guoziyao/Desktop/cqu.jpg')
+    org_watermark = watermark
 
     # graying & binaryzation
     watermark = cv2.cvtColor(watermark, cv2.COLOR_BGR2GRAY)
@@ -32,6 +35,22 @@ def test_lsb():
     cover_image[:, :, 0] = b_cover_image
     cv2.imwrite('x.bmp', cover_image)
     cover_image = cv2.imread('x.bmp')
+    # 显示LSB嵌入结果
+    # fig = plt.figure('Result')
+    # ax = fig.add_subplot(121)
+    # b, g, r = cv2.split(org_image)
+    # org_image = cv2.merge([r, g, b])
+    # ax.imshow(org_image)
+    # ax.set_title('Before')
+    # ax.axis('off')  # 关闭坐标轴显示
+    # ax = fig.add_subplot(122)
+    # b, g, r = cv2.split(cover_image)
+    # cover_image = cv2.merge([r, g, b])
+    # ax.imshow(cover_image)
+    # ax.set_title('After')
+    # ax.axis('off')  # 关闭坐标轴显示
+    # plt.show()
+
     # decode
     h, w = cover_image.shape[: 2]
     b_cover_image = cover_image[:, :, 0]
@@ -41,7 +60,20 @@ def test_lsb():
                 b_cover_image[i, j] = 255
             else:
                 b_cover_image[i, j] = 0
-    show_img(b_cover_image, 'DECODE')
+    # show_img(b_cover_image, 'DECODE')
+    # 显示LSB解码结果
+    fig = plt.figure('Result')
+    ax = fig.add_subplot(121)
+    b, g, r = cv2.split(org_watermark)
+    org_watermark = cv2.merge([r, g, b])
+    ax.imshow(org_watermark)
+    ax.set_title('Origin')
+    ax.axis('off')  # 关闭坐标轴显示
+    ax = fig.add_subplot(122)
+    ax.imshow(b_cover_image, cmap='gray')
+    ax.set_title('Extraction')
+    ax.axis('off')  # 关闭坐标轴显示
+    plt.show()
 
 
 def test_dwt():
@@ -94,6 +126,31 @@ def test_dwt():
     show_img(extracted, 'Extracted')
 
 
+def get_bit_image(image, bit):
+    value = 255 ^ (1 << bit)
+    image = np.uint8(image) & value
+    return image
+
+
+def test_lena_bit():
+    """
+    显示位面测试结果
+    """
+    image = cv2.imread('/Users/guoziyao/Desktop/lena.jpg', 0)
+    tests = list()
+    tests.append((image, 'Origin'))
+    for i in range(8):
+        tests.append((get_bit_image(image, i), 'The %s bit' % i))
+    fig = plt.figure('Result')
+    for index, each in enumerate(tests):
+        ax = fig.add_subplot(int('33' + str(index + 1)))
+        ax.imshow(each[0], cmap='gray')
+        ax.set_title(each[1])
+        ax.axis('off')  # 关闭坐标轴显示
+    plt.show()
+
+
 if __name__ == '__main__':
-    # test_lsb()
-    test_dwt()
+    test_lsb()
+    # test_dwt()
+    # test_lena_bit()
