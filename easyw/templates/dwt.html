@@ -1,22 +1,66 @@
 {% extends "layout.html" %}
 {% block body %}
+<style type="text/css">
+table{
+    font-size:12px;
+}
+table{
+    table-layout:fixed;
+    empty-cells:show;
+    border-collapse: collapse;
+    margin:0 auto;
+}
+td{
+    height:20px;
+}
+</style>
 <a href="{{ url_for('index.hello_world') }}">
     <img src="{{ url_for('static', filename='image/back_sign.ico') }}" width="20px" height="20px"/>
 </a>
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
-<h2>DWT</h2>
 <form enctype="multipart/form-data" action="{{ url_for('process.perform_dwt') }}" method="post">
-    <p>Cover Image:
-        <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 120, 120)">
-    </p>
-    <img id="previewCover" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
-    <p>Watermark:
-        <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 120, 120)">
-    </p>
-    <img id="previewWater" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
-    <p>
-        <input type="submit" value="Perform">
-    </p>
+<div id="main" style="width:800px;  height:400px;">
+    <div id="left" style="float:left ;  width:30%;  height:100%;">
+        <h2>DWT</h2>
+        <p>Cover Image:
+            <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 120, 120)">
+        </p>
+        <img id="previewCover" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+        <p>Watermark:
+            <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 120, 120)">
+        </p>
+        <img id="previewWater" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
+        <p>
+    </div>
+    <div id="right" style="float:left ;  width:70%; height:100%;">
+        <table align="center">
+            <caption>Change coefficient</caption>
+            <tr>
+                <td>Arnold times</td>
+                <td><input type="text" name="times" value="15" title="Arnold times"></td>
+            </tr>
+            <tr>
+                <td>cA</td>
+                <td><input type="text" name="cA" value="0.2" title=""></td>
+            </tr>
+            <tr>
+                <td>cH</td>
+                <td><input type="text" name="cH" value="0.1" title=""></td>
+            </tr>
+            <tr>
+                <td>cV</td>
+                <td><input type="text" name="cV" value="0.1" title=""></td>
+            </tr>
+            <tr>
+                <td>cD</td>
+                <td><input type="text" name="cD" value="0.1" title=""></td>
+            </tr>
+        </table>
+    </div>
+</div>
+<p>
+    <input type="submit" value="Perform">
+</p>
 </form>
 <div id="bigPic" style="position:absolute;display:none;">
     <img src="" id="pre_view"/>
