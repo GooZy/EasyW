@@ -3,6 +3,7 @@
 # @Time    : 2018/3/20 12:48
 # @Author  : GUO Ziyao
 import cv2
+import copy
 import pywt
 import numpy as np
 import matplotlib.pyplot as plt
@@ -80,9 +81,11 @@ def test_dwt():
     image = cv2.imread('/Users/guoziyao/Desktop/lena.jpg', 0)
     watermark = cv2.imread('/Users/guoziyao/Desktop/cqu.jpg', 0)
     image = cv2.resize(image, (400, 400))
+    # cv2.imwrite('a.bmp', image)
     cv2.imshow('Cover Image', image)
     watermark = cv2.resize(watermark, (100, 100))
     watermark = arnold(watermark, SCRAMBLING_KEY)
+    cv2.imwrite('a.bmp', watermark)
     cv2.imshow('Watermark Image', watermark)
     org_img = image
 
@@ -108,6 +111,10 @@ def test_dwt():
     cA1 = pywt.idwt2((cA2, (cH2, cV2, cD2)), 'haar')
     watermarkedImage = pywt.idwt2((cA1, (cH1, cV1, cD1)), 'haar')
     show_img(watermarkedImage)
+    temp = copy.deepcopy(watermarkedImage)
+    temp *= 255
+    temp = np.uint8(temp)
+    # cv2.imwrite('b.bmp', temp)
 
     # 提取水印
     [cA3, (cH3, cV3, cD3), (cH2, cV2, cD2), (cH1, cV1, cD1)] = pywt.wavedec2(watermarkedImage, 'haar', level=3)
@@ -124,6 +131,7 @@ def test_dwt():
     extracted = np.uint8(extracted)
     extracted = iarnold(extracted, SCRAMBLING_KEY)
     show_img(extracted, 'Extracted')
+    cv2.imwrite('b.bmp', extracted)
 
 
 def get_bit_image(image, bit):
@@ -150,7 +158,56 @@ def test_lena_bit():
     plt.show()
 
 
+def show_two_result():
+    # 显示DWT结果
+    a = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/tests/a.bmp')
+    bb = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/tests/b.bmp')
+    fig = plt.figure('Result')
+    ax = fig.add_subplot(121)
+    b, g, r = cv2.split(a)
+    a = cv2.merge([r, g, b])
+    ax.imshow(a)
+    ax.set_title('Before')
+    ax.axis('off')  # 关闭坐标轴显示
+    ax = fig.add_subplot(122)
+    ax.imshow(bb, cmap='gray')
+    ax.set_title('After')
+    ax.axis('off')  # 关闭坐标轴显示
+    plt.show()
+
+
+def show_attack_result(type):
+    # 显示DWT结果
+    if type == 'jpeg':
+        a = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/easyw/static/data/easyw_dwt_result_%s.jpg' % type)
+        b = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/easyw/static/data/easyw_result_%s_decode.bmp' % type)
+        b = b[: 100, : 100]
+        c = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/easyw/static/data/easyw_dwt_result_%s_decode.bmp' % type)
+    else:
+        a = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/easyw/static/data/easyw_dwt_result_%s.bmp' % type)
+        b = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/easyw/static/data/easyw_result_%s_decode.bmp' % type)
+        b = b[: 100, : 100]
+        c = cv2.imread('/Users/guoziyao/Desktop/my/EasyW/easyw/static/data/easyw_dwt_result_%s_decode.bmp' % type)
+    fig = plt.figure('%s Result' % type)
+    ax = fig.add_subplot(131)
+    ax.imshow(a, cmap='gray')
+    ax.set_title('After attacking')
+    ax.axis('off')  # 关闭坐标轴显示
+    ax = fig.add_subplot(132)
+    ax.imshow(b, cmap='gray')
+    ax.set_title('LSB')
+    ax.axis('off')  # 关闭坐标轴显示
+    ax = fig.add_subplot(133)
+    ax.imshow(c, cmap='gray')
+    ax.set_title('DWT')
+    ax.axis('off')  # 关闭坐标轴显示
+    plt.show()
+
+
 if __name__ == '__main__':
-    test_lsb()
+    # test_lsb()
     # test_dwt()
     # test_lena_bit()
+    # show_two_result()
+    for each in ['jpeg', 'blur', 'noise', 'rotate', 'scale', 'sharpen']:
+        show_attack_result(each)

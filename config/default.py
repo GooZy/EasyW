@@ -6,5 +6,5 @@
 SECRET_KEY = 'team632 forever'
 USERNAME = 'admin'
 PASSWORD = 'default'
-SCRAMBLING_KEY = [30, 1, 1, 1, 2]
+SCRAMBLING_KEY = [15, 1, 1, 1, 2]
 COEFFICIENTS = [0.2, 0.1, 0.1, 0.1]

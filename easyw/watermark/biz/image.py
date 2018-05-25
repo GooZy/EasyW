@@ -54,7 +54,9 @@ class ImageBiz(object):
     @classmethod
     def lsb(cls, cover_image_path, watermark_path):
         cover_image = cv2.imread(cover_image_path)
+        cover_image = cv2.resize(cover_image, (400, 400))
         watermark = cv2.imread(watermark_path)
+        watermark = cv2.resize(watermark, (100, 100))
 
         # graying & binaryzation
         watermark = cv2.cvtColor(watermark, cv2.COLOR_BGR2GRAY)
@@ -173,6 +175,7 @@ class ImageBiz(object):
         attacks.append(cls.warp_result('Gaussian Blur', path, which=which, cover_image_path=cover_image_path))
         # Scale
         scale = cv2.resize(img, None, fx=1.5, fy=1.5, interpolation=cv2.INTER_CUBIC)
+        scale = cv2.resize(scale, None, fx=2.0/3.0, fy=2.0/3.0, interpolation=cv2.INTER_CUBIC)
         path = cls.save_image(scale, base_file_name + '_scale.bmp')
         attacks.append(cls.warp_result('Scale', path, which=which, cover_image_path=cover_image_path))
         # JPEG
@@ -180,8 +183,10 @@ class ImageBiz(object):
         attacks.append(cls.warp_result('JPEG', path, which=which, cover_image_path=cover_image_path))
         # Rotate
         rows, cols = img.shape[: 2]
-        M = cv2.getRotationMatrix2D((int(rows / 2), int(cols / 2)), 90, 1)
+        M = cv2.getRotationMatrix2D((int(rows / 2), int(cols / 2)), 30, 1)
         rotate = cv2.warpAffine(img, M, (rows, cols), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
+        M = cv2.getRotationMatrix2D((int(rows / 2), int(cols / 2)), -30, 1)
+        rotate = cv2.warpAffine(rotate, M, (rows, cols), flags=cv2.INTER_CUBIC, borderMode=cv2.BORDER_REPLICATE)
         path = cls.save_image(rotate, base_file_name + '_rotate.bmp')
         attacks.append(cls.warp_result('Rotate', path, which=which, cover_image_path=cover_image_path))
         # Sharpen
