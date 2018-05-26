@@ -1,14 +1,26 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>Login</h2>
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<div align="center">
   <form action="{{ url_for('user.login') }}" method=post>
-    <dl>
-      <dt>Username:
-      <dd><input type=text name=username>
-      <dt>Password:
-      <dd><input type=password name=password>
-      <dd><input type=submit value=Login>
-    </dl>
+  <table id="handsome">
+      <tr>
+          <td colspan="2" align="center">
+              <img src="{{ url_for('static', filename='image/login.png') }}">
+          </td>
+      </tr>
+      <tr>
+        <td>Username:</td>
+        <td><input type=text name=username title="username"></td>
+      </tr>
+      <tr>
+        <td>Password:</td>
+        <td><input type=password name=password title="password"></td>
+      </tr>
+      <tr>
+        <td align="center" colspan="2"><input type=submit value=Login></td>
+      </tr>
+  </table>
   </form>
+</div>
 {% endblock %}

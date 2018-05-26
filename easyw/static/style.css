@@ -1,10 +1,10 @@
 body            { font-family: sans-serif; background: #eee; }
-a, h1, h2       { color: #377ba8; }
+a, h1, h2       { color: #377ba8; text-decoration:none;}
 h1, h2          { font-family: 'Georgia', serif; margin: 0; }
 h1              { border-bottom: 2px solid #eee; }
 h2              { font-size: 1.2em; }
 
-.page           { margin: 2em auto; width: 40em; border: 5px solid #ccc;
+.page           { margin: 2em auto; width: 50em; border: 5px solid #ccc;
                   padding: 0.8em; background: white; }
 .entries        { list-style: none; margin: 0; padding: 0; }
 .entries li     { margin: 0.8em 1.2em; }
@@ -12,9 +12,29 @@ h2              { font-size: 1.2em; }
 .add-entry      { font-size: 0.9em; border-bottom: 1px solid #ccc; }
 .add-entry dl   { font-weight: bold; }
 .metanav        { text-align: right; font-size: 0.8em; padding: 0.3em;
-                  margin-bottom: 1em; background: #fafafa; }
+                  margin-bottom: 1em; background: #f6f6f6; }
 .flash          { background: #cee5F5; padding: 0.5em;
                   border: 1px solid #aacbe2; }
 .error          { background: #f0d6d6; padding: 0.5em; }
 .button         { padding: 1em auto; border: 2px solid #cee5F5;
                   font-size: 20px; background-color: whitesmoke; }
+.submit {
+    width:104px; height:50px; border:none;
+    background:url(image/btn.png) left top;
+}
+.btn{
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 24px;
+    border-radius: 4px;
+    background-color: #63b7ff;
+    color: #fff;
+    cursor: pointer;
+}
+.btn:hover{
+    background-color: #99c6ff;
+}
+.btn{
+    font-style: normal;
+    font-size: 50px;
+}

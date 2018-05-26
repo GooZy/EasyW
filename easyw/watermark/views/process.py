@@ -5,6 +5,8 @@
 """
 Watermark processing
 """
+import time
+
 from easyw.watermark.biz.image import ImageBiz
 from config.default import SCRAMBLING_KEY
 from config.default import COEFFICIENTS
@@ -33,7 +35,7 @@ def perform_lsb():
 
     result_files = ImageBiz.lets_lsb(cover_image_path, watermark_path)
 
-    return render_template('lsb_result.html', result_files=result_files)
+    return render_template('lsb_result.html', result_files=result_files, rnd=str(time.time()))
 
 
 @bp.route('/dwt_index', methods=['GET', 'POST'])
@@ -63,4 +65,4 @@ def perform_dwt():
 
     result_files = ImageBiz.lets_dwt(cover_image_path, watermark_path)
 
-    return render_template('dwt_result.html', result_files=result_files)
+    return render_template('dwt_result.html', result_files=result_files, rnd=str(time.time()))

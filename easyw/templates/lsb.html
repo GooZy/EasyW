@@ -4,20 +4,27 @@
     <img src="{{ url_for('static', filename='image/back_sign.ico') }}" width="20px" height="20px"/>
 </a>
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
-<h2>LSB</h2>
+<h2 align="center" style="font-size: 40px;">LSB</h2>
 <form enctype="multipart/form-data" action="{{ url_for('process.perform_lsb') }}" method="post">
-    <p>Cover Image:
-        <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 120, 120)">
-    </p>
-    <img id="previewCover" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
-    <p>Watermark:
-        <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 120, 120)">
-    </p>
-    <img id="previewWater" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
-    <p>
-        <input type="submit" value="Perform">
-    </p>
+    <div id="main" style="height:210px;">
+        <div id="left" style="float:left; width:50%; height:100%;" align="center">
+            <p>Cover Image
+            <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 128, 128)" id="cover" hidden>
+            </p>
+            <img id="previewCover" src="{{ url_for('static', filename='image/upload.png') }}" onclick="fileSelect('cover')" style="cursor:pointer"/>
+        </div>
+        <div id="right" style="float:left; width:50%; height:100%;" align="center">
+            <p>Watermark
+            <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 128, 128)" id="water" hidden>
+            </p>
+            <img id="previewWater" src="{{ url_for('static', filename='image/upload.png') }}" onclick="fileSelect('water')" style="cursor:pointer"/>
+        </div>
+    </div>
+    <div align="center">
+        <input type="submit" value="Perform" class="btn" style="font-size: 15px">
+    </div>
 </form>
+<br/><br/>
 <div id="bigPic" style="position:absolute;display:none;">
     <img src="" id="pre_view"/>
 </div>

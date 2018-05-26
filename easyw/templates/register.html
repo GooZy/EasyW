@@ -1,16 +1,30 @@
 {% extends "layout.html" %}
 {% block body %}
-  <h2>Register</h2>
   {% if error %}<p class=error><strong>Error:</strong> {{ error }}{% endif %}
+<div align="center">
   <form action="{{ url_for('user.register') }}" method=post>
-    <dl>
-        <dt>Username:
-        <dd><input type=text name=username>
-        <dt>Password:
-        <dd><input type=password name=password>
-        <dt>Ensure Password:
-        <dd><input type=password name=password2>
-        <dd><input type=submit value=Register>
-    </dl>
+    <table id="handsome">
+        <tr>
+          <td colspan="2" align="center">
+              <img src="{{ url_for('static', filename='image/register.png') }}">
+          </td>
+        </tr>
+        <tr>
+            <td>Username:</td>
+            <td><input type=text name=username title="username"></td>
+        </tr>
+        <tr>
+            <td>Password:</td>
+            <td><input type=password name=password title="password"></td>
+        </tr>
+        <tr>
+            <td>Ensure Password:</td>
+            <td><input type=password name=password2 title="password2"></td>
+        </tr>
+        <tr>
+            <td colspan="2" align="center"><input type=submit value=Register></td>
+        </tr>
+    </table>
   </form>
+</div>
 {% endblock %}

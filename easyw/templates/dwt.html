@@ -19,48 +19,68 @@ td{
 </a>
 {% if error %}<p class=error><strong>Error:</strong> {{ error }}</p>{% endif %}
 <form enctype="multipart/form-data" action="{{ url_for('process.perform_dwt') }}" method="post">
-<div id="main" style="width:800px;  height:400px;">
-    <div id="left" style="float:left ;  width:30%;  height:100%;">
-        <h2>DWT</h2>
-        <p>Cover Image:
-            <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 120, 120)">
+    <h2 align="center" style="font-size: 40px;">DWT</h2>
+    <br/>
+<div id="main" style="height:250px;">
+    <div id="left" style="float:left; width:30%; height:80%;" align="center">
+        <p>Cover Image
+        <input type="file" name="cover_image" onchange="previewImage(this, 'previewCover', 128, 128)" id="cover" hidden>
         </p>
-        <img id="previewCover" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
-        <p>Watermark:
-            <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 120, 120)">
-        </p>
-        <img id="previewWater" src="" onmousemove="showBigPic(this.src)" onmouseout="closeImg()"/>
-        <p>
+        <img id="previewCover" src="{{ url_for('static', filename='image/upload.png') }}" onclick="fileSelect('cover')" style="cursor:pointer"/>
     </div>
-    <div id="right" style="float:left ;  width:70%; height:100%;">
+    <div id="center" style="float:left; width:40%; height:80%;" align="center">
+        <p>Change coefficient</p>
         <table align="center">
-            <caption>Change coefficient</caption>
             <tr>
-                <td>Arnold times</td>
-                <td><input type="text" name="times" value="15" title="Arnold times"></td>
+                <td width="30%">Arnold times</td>
+                <td width="60%">
+                    <input type="range" name="times" value="15" min="0" max="200" step="1" title="" oninput="change(this.name)">
+                </td>
+                <td width="10%">
+                    <label id="times">15</label>
+                </td>
             </tr>
             <tr>
                 <td>cA</td>
-                <td><input type="text" name="cA" value="0.2" title=""></td>
+                <td><input type="range" name="cA" value="0.2" min="0" max="1" step="0.1" title="" oninput="change(this.name)"></td>
+                <td>
+                    <label id="cA">0.2</label>
+                </td>
             </tr>
             <tr>
                 <td>cH</td>
-                <td><input type="text" name="cH" value="0.1" title=""></td>
+                <td><input type="range" name="cH" value="0.1" min="0" max="1" step="0.1" title="" oninput="change(this.name)"></td>
+                <td>
+                    <label id="cH">0.1</label>
+                </td>
             </tr>
             <tr>
                 <td>cV</td>
-                <td><input type="text" name="cV" value="0.1" title=""></td>
+                <td><input type="range" name="cV" value="0.1" min="0" max="1" step="0.1" title="" oninput="change(this.name)"></td>
+                <td>
+                    <label id="cV">0.1</label>
+                </td>
             </tr>
             <tr>
                 <td>cD</td>
-                <td><input type="text" name="cD" value="0.1" title=""></td>
+                <td><input type="range" name="cD" value="0.1" min="0" max="1" step="0.1" title="" oninput="change(this.name)"></td>
+                <td>
+                    <label id="cD">0.1</label>
+                </td>
             </tr>
         </table>
     </div>
+    <div id="right" style="float:left; width:30%; height:80%;" align="center">
+        <p>Watermark
+        <input type="file" name="watermark" onchange="previewImage(this, 'previewWater', 128, 128)" id="water" hidden>
+        </p>
+        <img id="previewWater" src="{{ url_for('static', filename='image/upload.png') }}" onclick="fileSelect('water')" style="cursor:pointer"/>
+    </div>
+    <div align="center">
+        <input type="submit" value="Perform" class="btn" style="font-size: 15px">
+    </div>
 </div>
-<p>
-    <input type="submit" value="Perform">
-</p>
+    <br/><br/>
 </form>
 <div id="bigPic" style="position:absolute;display:none;">
     <img src="" id="pre_view"/>

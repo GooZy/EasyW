@@ -4,13 +4,17 @@
 <script type="text/javascript" src="{{ url_for('static', filename='util.js') }}"></script>
 <title>Easy Watermark</title>
 <div class=page>
-  <a href="{{ url_for('index.hello_world') }}" style="text-decoration: none"><h1>Easy Watermark</h1></a>
+  <div align="center">
+    <a href="{{ url_for('index.hello_world') }}" style="text-decoration: none;">
+      <img src="{{ url_for('static', filename='image/logo_sc.png') }}">
+    </a>
+  </div>
   <div class=metanav>
   {% if not session.logged_in %}
-    <a href="{{ url_for('user.login') }}">log in</a>
-      <a href="{{ url_for('user.register') }}">register</a>
+    <a href="{{ url_for('user.login') }}">[log in]</a>&nbsp;&nbsp;
+      <a href="{{ url_for('user.register') }}">[register]</a>
   {% else %}
-    <a href="{{ url_for('user.logout') }}">log out</a>
+    <a href="{{ url_for('user.logout') }}">[log out]</a>
   {% endif %}
   </div>
   {% for message in get_flashed_messages() %}

@@ -45,13 +45,13 @@ function getZoomParam(maxWidth, maxHeight, width, height) {
 }
 
 
-//展示
+// 展示
 function showBigPic(filepath) {
 
     var img = document.getElementById('pre_view');
-    //将文件路径传给img大图
+    // 将文件路径传给img大图
     img.src = filepath;
-    //获取大图div是否存在
+    // 获取大图div是否存在
     var div = document.getElementById("bigPic");
     if (!div) {
         return;
@@ -80,7 +80,21 @@ function showBigPic(filepath) {
 }
 
 
-//隐藏
+// 隐藏
 function closeImg(){
     document.getElementById("bigPic").style.display="none";
+}
+
+
+// 选择文件
+function fileSelect(fid) {
+    document.getElementById(fid).click();
+}
+
+
+// 动态显示数值
+function change(name){
+    var num = document.getElementsByName(name)[0];
+    var label = document.getElementById(name);
+    label.innerText = num.value;
 }

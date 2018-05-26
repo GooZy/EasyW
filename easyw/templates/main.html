@@ -1,6 +1,12 @@
 {% extends "layout.html" %}
 {% block body %}
-<p><b>Choose a method you want to use :)</b></p>
-<a href="{{ url_for('process.lsb_index') }}"><button class="button" style="margin-left: 35%;">LSB</button></a>
-<a href="{{ url_for('process.dwt_index') }}"><button class="button" style="margin-left: 2em;">DWT</button></a>
+<p align="center"><b>Choose a method you want to use :)</b></p>
+<div id="main" style="height:120px;">
+    <div id="left" style="float:left ;  width:50%;  height:100%;" align="center">
+        <a href="{{ url_for('process.lsb_index') }}" class="btn">LSB</a>
+    </div>
+    <div id="right" style="float:left ;  width:50%;  height:100%;" align="center">
+        <a href="{{ url_for('process.dwt_index') }}" class="btn">DWT</a>
+    </div>
+</div>
 {% endblock %}
