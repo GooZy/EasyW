@@ -3,6 +3,7 @@
 # @Time    : 2018/3/31 14:10
 # @Author  : GUO Ziyao
 import os
+import time
 
 from easyw import app
 from easyw.common.utils import get_web_path
@@ -72,7 +73,7 @@ class ImageBiz(object):
                 if watermark[i, j] == 255:
                     b_cover_image[i, j] = b_cover_image[i, j] | 1
         cover_image[:, :, 0] = b_cover_image
-        return cls.save_image(cover_image, 'easyw_result.bmp')
+        return cls.save_image(cover_image, 'easyw_result[%s].bmp' % time.time())
 
     @classmethod
     def decode_lsb(cls, image_path):
@@ -127,7 +128,7 @@ class ImageBiz(object):
         watermarkedImage = pywt.idwt2((cA1, (cH1, cV1, cD1)), 'haar')
         watermarkedImage *= 255
         watermarkedImage = np.uint8(watermarkedImage)
-        return cls.save_image(watermarkedImage, 'easyw_dwt_result.bmp')
+        return cls.save_image(watermarkedImage, 'easyw_dwt_result[%s].bmp' % time.time())
 
     @classmethod
     def decode_dwt(cls, image_path, cover_image_path):
